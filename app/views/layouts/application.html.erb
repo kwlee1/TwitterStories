@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitter Stories</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<h1>Twitter Stories</h1>
+<% if current_user %>
+<h3>Welcome <%= current_user.username %>!</h3>
+<a href="/sessions/<%= current_user.id %>" data-method="delete" class="link">Logout</a>
+<% else %>
+<a class="link" href="/users">Login/Registration</a>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<a class="link" href="/">Home</a>
+<h2>Title: <%= @story.title %></h2>
+<p>Creator: <%= @story.user.username %></p>
+<p>Created at: <%= @story.created_at %></p>
+<h4><%= @story.content %> <span class="info">By: <%= @story.user.username %> At: <%= @story.created_at %></span></h4>
+<% if @entries %>
+  <% @entries.each do |entry| %>
+  <h4><%= entry.content %>  <span class="info">By: <%= entry.user.username %> At: <%= entry.created_at %></span> </h4>
+  <% end %>
+<% end %>
+
+<% if current_user %>
+<h2>Add New Entry: </h2>
+<% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+<% end %>
+<form action="/entries" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    Next Entry: <input type="text" name = "entry[content]"><br>
+    <input type="submit" value="Submit">
+</form>
+<% else %>
+<h2>Log in to add a new entry!</h2>
+<% end %>

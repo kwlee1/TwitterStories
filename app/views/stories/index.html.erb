@@ -1,0 +1,31 @@
+<a class="link" href="/users/new">About Twitter Stories</a>
+
+<h2>Stories:</h2>
+<% if @stories %>
+  <% @stories.each do |story| %>
+    <h4>Title: <a href="/stories/<%= story.id %>" class="link"><%= story.title %></a></h4>
+    <p>First Entry: <%= story.content %></p>
+    <p>Creator: <%= story.user.username %></p>
+    <p>Created at: <%= story.created_at %></p><br>
+  <% end %>
+<% end %>
+
+
+
+<h2>--------------------------</h2>
+<% if current_user %>
+<h2>Add New Story: </h2>
+<% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+<% end %>
+<form action="/stories" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    Title: <input type="text" name = "story[title]"><br>
+    First Entry: <input type="text" name = "story[content]"><br>
+    <input type="submit" value="Submit">
+</form>
+<% else %>
+<h2>Log in to add a new story!</h2>
+<% end %>
